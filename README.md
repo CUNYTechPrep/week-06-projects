@@ -6,6 +6,8 @@
 - Kahalia Stanberry
 - Rafael Ninalaya
 
+How to create [your own branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/) to this repo.
+
 ## Coordination Resources
 - [Trello](https://trello.com/b/6OiOQY0V/uber-for-errands)
 - [Slack Page](https://ctp2017.slack.com/messages/G7B1NQ892)
