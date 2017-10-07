@@ -2,7 +2,7 @@
 
 ## Group Members
 - David Hadaller
-- Kelvin (Qizhi) Zhao
+- Kelvin (Qizhi) Zhao [Qz]
 - Kahalia Stanberry
 - Rafael Ninalaya
 
@@ -16,4 +16,6 @@ How to create [your own branch](https://help.github.com/articles/creating-and-de
 ## Backend Starter Code
 You can use this [backend starter code](backend-starter-code/) for your own projects that require a node/express/sequelize backend server. This code was forked from [CTP week-06-projects](https://github.com/CUNYTechPrep/week-06-projects)
 
-
+## Care
+Do not change any code on website.
+And do not use -f or force command.
