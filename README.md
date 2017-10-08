@@ -20,20 +20,20 @@ You can use this [backend starter code](backend-starter-code/) for your own proj
 
 ## Back End
   Node.js running
-    + Express.js for RESTful API
-    + Sequilize.js for for SQL queries to 
-      (sequlize middle ware?)
+    + [Javascript ES6](https://nodejs.org/api/)
+    + [Express.js](http://expressjs.com/en/guide/routing.html) for RESTful API
+    + [Sequilize.js](http://docs.sequelizejs.com/) for for SQL queries to 
   Postgres
   
 ## Front End
-  Babel-Compiled 
-   + Javascript ES6
-   + React.js Libraries (using JSX)
-   + Bootstrap (using Bootswatch for themeing, HTML5 and CSS3)
+  [Babel](https://babeljs.io/docs/setup/#installation)-Compiled 
+   + [Javascript ES6](https://babeljs.io/learn-es2015/)
+   + [React.js](https://reactjs.org/docs/hello-world.html) Libraries (using JSX)
+   + [Bootstrap](http://bootstrapdocs.com/v3.0.3/docs/components/) (using [Bootswatch](https://bootswatch.com/) for themeing, [HTML5 and CSS3](https://www.w3schools.com/))
    
 ## Development Enviromnent 
-  Git Source Code Manager (git-scm, locally installed on computer)
-  GitHub (website)
-  Postman for API Queries
+  Git Source Code Manager ([git-scm](https://git-scm.com/book/en/v2/Git-Basics-Undoing-Things), locally installed on computer)
+  [GitHub.com](https://help.github.com/) (website)
+  [Postman](https://www.getpostman.com/) for API Queries
   
   
