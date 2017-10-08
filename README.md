@@ -16,4 +16,24 @@ How to create [your own branch](https://help.github.com/articles/creating-and-de
 ## Backend Starter Code
 You can use this [backend starter code](backend-starter-code/) for your own projects that require a node/express/sequelize backend server. This code was forked from [CTP week-06-projects](https://github.com/CUNYTechPrep/week-06-projects)
 
+# Technologies Used:
 
+## Back End
+  Node.js running
+    + Express.js for RESTful API
+    + Sequilize.js for for SQL queries to 
+      (sequlize middle ware?)
+  Postgres
+  
+## Front End
+  Babel-Compiled 
+   + Javascript ES6
+   + React.js Libraries (using JSX)
+   + Bootstrap (using Bootswatch for themeing, HTML5 and CSS3)
+   
+## Development Enviromnent 
+  Git Source Code Manager (git-scm, locally installed on computer)
+  GitHub (website)
+  Postman for API Queries
+  
+  
