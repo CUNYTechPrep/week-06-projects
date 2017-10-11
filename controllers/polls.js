@@ -14,6 +14,7 @@ const PollsController = {
     return router;
   },
 
+  // retrieves a list of all polls
   index(req, res) {
     models.Poll.findAll()
     .then((allPolls) => {
@@ -21,6 +22,7 @@ const PollsController = {
     });
   },
 
+  // creates a new poll object
   create(req, res) {
     models.Poll.create({
     question: req.body.question
@@ -29,21 +31,19 @@ const PollsController = {
     res.json(poll);
   })
   .catch(() => {
-    res.sendStatus(400);
-  });
-},
-
-  show(req, res){
-    models.Poll.findById(parseInt(req.params.id), {
-    include: [{
-      model: models.Choice
-    }]
-  })
-  .then(poll => {
-    res.json(poll);
-  });
+      res.sendStatus(400);
+    });
   },
 
+  // retrieves poll with specific id
+  show(req, res) {
+    models.Poll.findById(parseInt(req.params.id))
+    .then(poll => {
+      res.json(poll);
+    });
+  },
+
+  // updates poll with specific id with new question
   update(req, res) {
     models.Poll.findById(parseInt(req.params.id))
     .then(poll => {
@@ -56,6 +56,7 @@ const PollsController = {
     });
   },
   
+  // deletes poll with specific id
   delete(req, res) {
     models.Poll.destroy({
       where: { id: parseInt(req.params.id) }
