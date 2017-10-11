@@ -35,6 +35,10 @@ router.get('/:id', (req, res) => {
       model: models.Choices
     }]
   })
+  .catch((err)=>{
+    console.log(err);
+    res.sendStatus(400);
+  })
   .then(poll => {
     res.json(poll);
   });
@@ -47,8 +51,12 @@ router.post('/:id/choices', (req, res) => {
   models.Polls.findById(parseInt(req.params.id))
     .then(poll => {
       models.Choices.create({
-        description: req.body.description,
+        body: req.body.description,
         PollId: poll.id
+      })
+      .catch((err)=>{
+        console.log(err);
+        res.sendStatus(400);
       })
       .then((choice) => {
         res.json(choice);

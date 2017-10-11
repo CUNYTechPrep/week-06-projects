@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const Polls = sequelize.define('Polls', {
-    question: DataTypes.STRING
+    question: DataTypes.STRING 
   });
 
   Polls.associate = (models) => {
