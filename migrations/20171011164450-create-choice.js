@@ -11,6 +11,9 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
+      pollId: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -2,7 +2,7 @@
   "development": {
     "username": "pollster",
     "password": "admin",
-    "database": "poll_developmentt",
+    "database": "poll_development",
     "host": "127.0.0.1",
     "dialect": "postgresql"
   },
