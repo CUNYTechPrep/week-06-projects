@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 
-router.use('/alt', require('./alt'));
+router.use('/polls', require('./polls'));
 router.use('/', require('./home'));
 
 

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     classMethods: {
       associate: function(models) {
-        models.Poll.hasMany(models.Choices);
+        models.Poll.hasMany(models.Choice);
       }
     }
   });
