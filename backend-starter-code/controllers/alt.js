@@ -1,6 +1,8 @@
 const express = require('express');
 const models = require('../models');
 
+// An alternative way to define a controller
+
 const AltController = {
   registerRouter() {
     const router = express.Router();
