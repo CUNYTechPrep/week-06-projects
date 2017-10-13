@@ -5,6 +5,7 @@ const AltController = {
   registerRouter() {
     const router = express.Router();
 
+    // Mapping routes to the function names
     router.get('/', this.index);
     router.post('/', this.create);
     router.put('/:id', this.update);
