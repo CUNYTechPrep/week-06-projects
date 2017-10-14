@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Polls.associate = (models) => {
-    models.Polls.hasMany(models.Choices);
+    // update Polls relation so deletions cascade
+    models.Polls.hasMany(models.Choices,
+                         { onDelete: 'cascade', hooks: 'true' });
   }
 
   return Polls;

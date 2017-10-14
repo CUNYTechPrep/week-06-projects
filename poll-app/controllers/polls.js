@@ -36,8 +36,48 @@ router.get('/:id', (req, res) => {
     }]
   })
   .then(poll => {
+    // NOTE: DEBUG CODE
+    // console.log(poll);
     res.json(poll);
   });
+});
+
+// This route is used to update a specific poll question text
+//  The poll id is in the route parameters
+//  The updated question text is in the body parameters
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: []
+  })
+  .then(poll => {
+    // NOTE: DEBUG CODE
+    // console.log(poll);
+    // set the new value for question
+    poll.set('question', req.body.question);
+    poll.save();
+    res.json(poll);
+  })
+});
+
+// This route is used for deleting a specific poll question text
+//  The poll id is in the route parameters
+//  The query also deletes all associated choices for the poll
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    // destroy the poll
+    poll.destroy();
+    // send the deleted poll as the JSON response
+    res.json(poll);
+  })
+  .catch(() => {
+    console.log('Error Deleting Poll');
+    res.sendStatus(400);
+  })
 });
 
 // This route is used for adding a choice for a specific poll
