@@ -40,6 +40,23 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// This route is used to update a specific poll question text
+//  The poll id is in the route parameters
+//  The updated question text is in the body parameters
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: []
+  })
+  .then(poll => {
+    // NOTE: DEBUG CODE
+    // console.log(poll);
+    // set the new value for question
+    poll.set('question', req.body.question);
+    poll.save();
+    res.json(poll);
+  })
+});
+
 // This route is used for adding a choice for a specific poll
 //  The poll id is in the route parameters
 //  The choice description is in the parameters
