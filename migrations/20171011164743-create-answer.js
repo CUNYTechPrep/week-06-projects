@@ -1,33 +1,51 @@
 'use strict';
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Answers', {
+  up: (queryInterface, DataTypes) => {
+    return queryInterface.createTable('answers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER
-      },
-      pollId: {
-        type: Sequelize.INTEGER
-      },
-      choiceId: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
+      user_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        type: Sequelize.DATE
+        references: {
+          model: 'users',
+          key: 'id'
+        },
+        onDelete: 'cascade'
       },
-      updatedAt: {
+      poll_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        type: Sequelize.DATE
+        references: {
+          model: 'polls',
+          key: 'id'
+        },
+        onDelete: 'cascade'
+      },
+      choice_id: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'choices',
+          key: 'id'
+        },
+        onDelete: 'cascade'
+      },
+      created_at: {
+        allowNull: false,
+        type: DataTypes.DATE
+      },
+      updated_at: {
+        allowNull: false,
+        type: DataTypes.DATE
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Answers');
+  down: (queryInterface, DataTypes) => {
+    return queryInterface.dropTable('answers');
   }
 };

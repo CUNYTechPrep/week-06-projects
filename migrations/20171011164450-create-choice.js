@@ -1,30 +1,29 @@
 'use strict';
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Choices', {
+  up: (queryInterface, DataTypes) => {
+    return queryInterface.createTable('choices', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
       description: {
-        type: Sequelize.STRING
+        type: DataTypes.STRING,
+        allowNull: false
       },
-      pollId: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
+      poll_id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        references: {
+          model: 'polls',
+          key: 'id'
+        },
+        onDelete: 'cascade'
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Choices');
+  down: (queryInterface, DataTypes) => {
+    return queryInterface.dropTable('choices');
   }
 };

@@ -1,27 +1,28 @@
 'use strict';
 module.exports = {
-  up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Polls', {
+  up: (queryInterface, DataTypes) => {
+    return queryInterface.createTable('polls', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
       question: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
+        type: DataTypes.STRING,
         allowNull: false,
-        type: Sequelize.DATE
       },
-      updatedAt: {
+      created_at: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: DataTypes.DATE
+      },
+      updated_at: {
+        allowNull: false,
+        type: DataTypes.DATE
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Polls');
+  down: (queryInterface, DataTypes) => {
+    return queryInterface.dropTable('polls');
   }
 };
