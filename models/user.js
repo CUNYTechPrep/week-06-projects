@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       associate: function(db) {
         db.users.hasMany(db.answers);
       }
-    }
-  }, {
+    },
     underscored: true
   });
   return User;

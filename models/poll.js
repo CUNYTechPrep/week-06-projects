@@ -7,9 +7,8 @@ module.exports = (sequelize, DataTypes) => {
       associate: function(db) {
         db.polls.hasMany(db.choices);
       }
-    }
-  }, {
-    underscored: true
+    },
+    underscored: true    
   });
   return Poll;
 };

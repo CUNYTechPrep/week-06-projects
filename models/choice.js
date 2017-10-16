@@ -7,8 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       associate: function(db) {
         db.choices.belongsTo(db.polls);
       }
-    }
-  }, {
+    },
     underscored: true,
     timestamps: false
   });

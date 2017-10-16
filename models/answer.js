@@ -8,8 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         db.answers.belongsTo(db.polls);
         db.answers.belongsTo(db.choices);
       }
-    }
-  }, {
+    },
     underscored: true
   });
   return Answer;

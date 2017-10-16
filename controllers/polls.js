@@ -1,5 +1,5 @@
 const express = require('express');
-const models = require('../models');
+const db = require('../models');
 
 const PollsController = {
   registerRouter() {
@@ -24,15 +24,15 @@ const PollsController = {
 
   // creates a new poll object
   create(req, res) {
-    models.Poll.create({
+    db.polls.create({
     question: req.body.question
   })
   .then((poll) => {
     res.json(poll);
   })
-  .catch(() => {
-      res.sendStatus(400);
-    });
+  // .catch(() => {
+  //     res.sendStatus(400);
+  //   });
   },
 
   // retrieves poll with specific id
