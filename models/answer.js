@@ -1,14 +1,16 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Answer = sequelize.define('Answer', {
+  const Answer = sequelize.define('answers', {
   }, {
     classMethods: {
-      associate: function(models) {
-        models.Answer.belongsTo(models.User);
-        models.Answer.belongsTo(models.Poll);
-        models.Answer.belongsTo(models.Choice);
+      associate: function(db) {
+        db.answers.belongsTo(db.users);
+        db.answers.belongsTo(db.polls);
+        db.answers.belongsTo(db.choices);
       }
     }
+  }, {
+    underscored: true
   });
   return Answer;
 };

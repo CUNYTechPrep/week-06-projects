@@ -1,13 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var Poll = sequelize.define('Poll', {
+  const Poll = sequelize.define('polls', {
     question: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(models) {
-        models.Poll.hasMany(models.Choice);
+      associate: function(db) {
+        db.polls.hasMany(db.choices);
       }
     }
+  }, {
+    underscored: true
   });
   return Poll;
 };
