@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
   });
 });
 
-<<<<<<< HEAD
 router.post('/', (req, res) => {
   res.json({
     msg: "Successful POST to '/' route"
@@ -30,8 +29,5 @@ router.delete('/:id', (req, res) => {
     id: req.params.id
   });
 });
-
-=======
->>>>>>> f13f4451ce7014c2bcbee2c40be85b72e43619c4
 
 module.exports = router;
