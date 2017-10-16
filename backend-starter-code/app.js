@@ -13,6 +13,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const controllers = require('./controllers');
 app.use(controllers)
 
+const exphbs = require('express-handlebars');
+app.engine('handlebars', exphbs({
+  layoutsDir: './views/layouts',
+  defaultLayout: 'main',
+}));
+app.set('view engine', 'handlebars');
+app.set('views', `${__dirname}/views/`);
+
 // First, make sure the Database tables and models are in sync
 // then, start up the server and start listening.
 models.sequelize.sync({force: false})

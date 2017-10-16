@@ -8,9 +8,9 @@ const PollsController = {
     router.get('/', this.get);
     router.get('/:id', this.getById);
     router.post('/', this.create);
-    router.post('/:id/choices', this.createChoices)
-    // router.put('/:id', this.update);
-    // router.delete('/:id', this.delete);
+    router.delete('/:id', this.deletePoll);
+    router.post('/:id/choices', this.createChoice);
+    router.put('/choices/:id', this.updateChoice);
 
     return router;
   },
@@ -18,7 +18,7 @@ const PollsController = {
     // Get all polls with choices from the choices table.
     models.Polls.findAll({include: [{model: models.Choices}]})
       .then(polls => {
-        res.json(polls);
+        res.render('polls', {polls});
       });
   },
   getById(req, res) {
@@ -39,7 +39,7 @@ const PollsController = {
       res.sendStatus(400);
     });
   },
-  createChoices(req, res) {
+  createChoice(req, res) {
     models.Polls.findById(parseInt(req.params.id))
       .then(poll => {
         models.Choices.create({
@@ -51,6 +51,22 @@ const PollsController = {
         console.log(err);
         res.sendStatus(400);
       });
+  },
+  updateChoice(req, res) {
+    models.Choices.increment('count', {where: {id: req.params.id}})
+      .then(result => res.sendStatus(200))
+      .catch(err => res.sendStatus(400));
+  },
+  deletePoll(req, res) {
+    models.Polls.destroy({
+      where: {id: req.params.id}
+    })
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      res.sendStatus(400);
+    })
   }
 };
 

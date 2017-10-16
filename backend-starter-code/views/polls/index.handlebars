@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-xs-6 col-xs-offset-3">
+    <form action="/polls" method="post" >
+      <label>Question: </label>
+      <input name="question" class="form-control"></input>
+      <label>Choice: </label>
+      <input name="choice"></input>
+      <button type="submit" class="btn btn-primary pull-right">Post</button>
+    </form>
+  </div>
+</div>
+{{#each polls}}
+  <div class="row">
+    <div class="col-xs-6 col-xs-offset-3">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          {{ poll.question }}
+        </div>
+      </div>
+    </div>
+  </div>
+{{/each}}
+
