@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     question: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(db) {
+      associate: function (db) {
         db.polls.hasMany(db.choices);
       }
     },
-    underscored: true    
+    underscored: true
   });
   return Poll;
 };

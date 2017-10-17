@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(db) {
+      associate: function (db) {
         db.choices.belongsTo(db.polls);
       }
     },

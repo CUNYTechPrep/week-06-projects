@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING
   }, {
     classMethods: {
-      associate: function(db) {
+      associate: function (db) {
         db.users.hasMany(db.answers);
       }
     },

@@ -13,31 +13,31 @@ const AnswersController = {
     return router;
   },
 
-  
+
   // retrieves all user answers to polls
   index(req, res) {
     db.answers.findAll()
-    .then((allAnswers) => {
-      res.json(allAnswers);
-    });
+      .then((allAnswers) => {
+        res.json(allAnswers);
+      });
   },
 
   // records a new answer to poll
   create(req, res) {
     db.answers.create({
-      user_id: req.body.user_id,
-      poll_id: req.body.poll_id,
-      choice_id: req.body.choice_id,
-    })
+        user_id: req.body.user_id,
+        poll_id: req.body.poll_id,
+        choice_id: req.body.choice_id,
+      })
       .then((answer) => {
         res.json(answer);
       })
-    .catch(() => {
-      res.sendStatus(400);
-    });
+      .catch(() => {
+        res.sendStatus(400);
+      });
   },
 
-// for future development
+  // for future development
   update(req, res) {
     res.json({
       msg: "Successful PUT to '/answers' route",
