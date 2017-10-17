@@ -11,6 +11,37 @@ router.get('/', (req, res) => {
       res.json(allPolls);
     })
 });
+//this route deletes questions and associated choices
+router.delete('/delete/:id',(req,res)=>{
+idpoll = req.params.id;
+models.Choices.destroy({
+  where : {
+    PollId: idpoll
+  }
+}).then(()=>{
+  models.Polls.destroy({
+    where : {
+      id:idpoll
+    }
+  })
+  res.json('Deletion complete')
+})
+  .catch(() => {
+    console.log('error here')
+    res.sendStatus(400);
+  });
+});
+// this route allows for putting/ updating question
+router.put('/update/:id',(req,res)=>{
+idpoll = req.params.id;
+models.Polls.update({ question: 'changed'}, { where:req.params }).
+then((question)=>{
+  res.json('update complete on question '+ idpoll)
+})
+
+});
+
+
 
 // This route is for creating a new poll object
 //  We provide the `question` in the body parameters
