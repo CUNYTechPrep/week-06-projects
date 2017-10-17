@@ -33,5 +33,8 @@ db.Sequelize = Sequelize;
 
 db.polls.hasMany(db.choices);
 db.choices.belongsTo(db.polls);
+db.answers.belongsTo(db.users);
+db.answers.belongsTo(db.choices);
+db.answers.belongsTo(db.polls);
 
 module.exports = db;

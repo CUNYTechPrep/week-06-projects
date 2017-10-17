@@ -1,5 +1,5 @@
 const express = require('express');
-const models = require('../models');
+const db = require('../models');
 
 const UsersController = {
   registerRouter() {
@@ -13,9 +13,9 @@ const UsersController = {
     return router;
   },
 
-   // retrieves a list of all users
+  // retrieves a list of all users
   index(req, res) {
-    models.User.findAll()
+    db.User.findAll()
       .then((allUsers) => {
         res.json(allUsers);
       });
@@ -23,43 +23,45 @@ const UsersController = {
 
   // creates a new user object
   create(req, res) {
-    models.User.create({
-      email: req.body.email,
-      name: req.body.name
-    })
+    db.users.create({
+        email: req.body.email,
+        name: req.body.name
+      })
       .then((user) => {
         res.json(user);
       })
-    .catch(() => {
-      res.sendStatus(400);
-    });
+      .catch(() => {
+        res.sendStatus(400);
+      });
   },
 
   // updates user with new email and name
   update(req, res) {
-    models.User.findById(parseInt(req.params.id))
-    .then(user => {
-      user.updateAttributes({
-        email: req.body.email,
-        name: req.body.name
+    db.users.findById(parseInt(req.params.id))
+      .then(user => {
+        user.updateAttributes({
+          email: req.body.email,
+          name: req.body.name
+        })
       })
-    })
-    .then(user => {
-      res.json(user);
-    });
+      .then(user => {
+        res.json(user);
+      });
   },
 
   // deletes user by id
   delete(req, res) {
-    models.User.destroy({
-      where: { id: parseInt(req.params.id) }
-    })
-    .then(user => {
-      res.json({
-        msg: "Successful DELETE to '/users' route",
-        id: req.params.id
+    db.users.destroy({
+        where: {
+          id: parseInt(req.params.id)
+        }
+      })
+      .then(user => {
+        res.json({
+          msg: "Successful DELETE to '/users' route",
+          id: req.params.id
+        });
       });
-    });
   }
 };
 
