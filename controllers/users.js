@@ -24,7 +24,8 @@ const UsersController = {
   // creates a new user object
   create(req, res) {
     models.User.create({
-      email: req.body.email
+      email: req.body.email,
+      name: req.body.name
     })
       .then((user) => {
         res.json(user);
@@ -34,12 +35,13 @@ const UsersController = {
     });
   },
 
-  // updates user with new email
+  // updates user with new email and name
   update(req, res) {
     models.User.findById(parseInt(req.params.id))
     .then(user => {
       user.updateAttributes({
-        email: req.body.email
+        email: req.body.email,
+        name: req.body.name
       })
     })
     .then(user => {
