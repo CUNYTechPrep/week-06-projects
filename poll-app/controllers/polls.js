@@ -26,7 +26,16 @@ router.post('/', (req, res) => {
     res.sendStatus(400);
   })
 });
-
+// this is put method, to update
+router.put('/:id/:text', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    poll.question = req.params.text;
+    res.json({
+      msg: "Successful Changed " + req.params.text
+    })
+  })
+});
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
