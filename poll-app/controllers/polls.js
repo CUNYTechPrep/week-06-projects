@@ -60,5 +60,17 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+//Allows user to update a poll question
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    res.json(poll);
+  });
+});
+
+//Allows user to delete a poll
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id));
+});
 
 module.exports = router;
