@@ -10,5 +10,11 @@ router.get('/', (req, res) => {
   });
 });
 
+router.delete('/', (req, res) => {
+  res.json({
+    msg: "Successful DELETE to '/' route"
+  });
+});
+
 
 module.exports = router;

@@ -60,5 +60,76 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id',(req,res)=>{
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll=>{
+    models.Polls.update({
+      question: req.body.question
+    },
+      {
+      where:{
+        id: poll.id
+        
+      }
+    })
+    .then(()=>{
+      res.sendStatus(200)
+    })
+  })
+  .catch(()=>{
+    console.log("error here")
+    res.sendStatus(400);
+  })
+
+
+  /*
+  .then(poll=>{
+     models.Choices.update({
+        question: req.body.question
+      }
+      ,
+      where: {
+        id: poll.id
+
+      }
+      .then(() => {
+        res.sendStatus(200)
+  })
+  .catch(()=>{
+    console.log("error here")
+    res.sendStatus(400);
+  })
+  */
+});
+
+//This route is used for deleting a poll for all the choices that specify to this poll
+router.delete('/:id',(req,res)=> {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+  models.Choices.destroy({
+      where: {
+        PollId: poll.id,
+      }
+    })
+    .then(() => {
+      models.Polls.destroy({
+      where: {
+        id: poll.id,
+      }
+    })
+      .then(()=>{
+        res.sendStatus(200);
+      })
+      
+    });
+    })
+  .catch(()=>{
+    console.log('error to delete')
+    res.sendStatus(400);
+  })
+});
+
+
+
 
 module.exports = router;

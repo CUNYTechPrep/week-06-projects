@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "DB_USERNAME",
+    "username": "DB_USERNAME",            //ctp_user
     "password": "DB_PASSWORD",
-    "database": "APP_development",
+    "database": "APP_development",        //question_development
     "host": "127.0.0.1",
     "dialect": "postgresql"
   },
