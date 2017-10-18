@@ -5,7 +5,9 @@ module.exports = (sequelize, DataTypes) => {
 
   Choices.associate = (models) => {
     // models.Choices.hasMany(models.Votes);
-    models.Choices.belongsTo(models.Polls);
+    models.Choices.belongsTo(models.Polls,
+        {onDelete: 'CASCADE'}
+    );
   }
 
   return Choices;
