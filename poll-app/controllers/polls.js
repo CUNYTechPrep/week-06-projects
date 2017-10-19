@@ -3,6 +3,31 @@ const models = require('../models');
 
 const router = express.Router();
 
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.update({
+      question: req.body.question
+    });
+    res.json(poll);
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.destroy();
+    res.json(poll);
+  });
+});
 
 // This route retrieves a list of all poll questions
 router.get('/', (req, res) => {
