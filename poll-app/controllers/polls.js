@@ -60,5 +60,35 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+//update 
+router.put('/update/:id', (req, res) => {
+  var id = req.params.id;
+
+  models.Polls.findById(parseInt(id))
+    .then((poll) => {
+      poll.question = req.body.question;
+      poll.save();
+      res.json(poll);
+    }).catch(() => {
+      res.sendStatus(400);
+    });
+});
+
+//delete
+
+router.delete('/delete/:id', (req, res) => {
+  var id = req.params.id;
+
+  models.Polls.findById(parseInt(id), {
+    include: [{
+      model: models.Choices
+    }]
+  }).then((poll) => {
+    poll.destroy({force: true});
+    res.json(poll);
+  }).catch(() => {
+    res.sendStatus(400);
+  });
+});
 
 module.exports = router;
