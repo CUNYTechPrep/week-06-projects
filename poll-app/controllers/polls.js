@@ -67,52 +67,29 @@ router.post("/:id/choices", (req, res) => {
 // Update a poll question text
 router.put("/:id", (req, res) => {
   models.Polls
-    .findById(parseInt(req.params.id), {
-      include: []
-    })
-    .then(poll => {
-      poll.set("question", req.body.question);
-      poll.save();
-      res.json(poll);
+    .update(updateValues, { where: { id: req.params.id } })
+    .then(result => {
+      res.json(updateValues);
     });
 });
 
 // Add the user to delete a poll
 router.delete("/:id", (req, res) => {
   models.Polls
-    .findById(parseInt(req.params.id), {
-      include: [
-        {
-          model: models.Choices
-        }
-      ]
-    })
-    .then(poll => {
-      poll.destroy();
-      res.json(poll);
-    })
-    .catch(() => {
-      console.log("Error Delete Poll");
-      res.sendStatus(400);
-    });
-});
-
-// Add new choice for a poll
-router.post("/:id/choices", (req, res) => {
-  models.Polls
     .findById(parseInt(req.params.id))
     .then(poll => {
-      models.Choices
-        .create({
-          description: req.body.description,
-          PollId: poll.id
+      models.Polls
+        .destroy({
+          where: {
+            id: poll.id
+          }
         })
-        .then(choice => {
-          res.json(choice);
+        .then(() => {
+          res.sendStatus(201);
         });
     })
     .catch(() => {
-      console.log("error here");
+      console.log("Error Delete Poll");
       res.sendStatus(400);
     });
 });
