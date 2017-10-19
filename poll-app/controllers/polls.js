@@ -12,10 +12,12 @@ router.get('/', (req, res) => {
     })
 });
 
+
 // This route is for creating a new poll object
 //  We provide the `question` in the body parameters
 //  Note: this does NOT take an array of choices
 router.post('/', (req, res) => {
+  console.log("question: ", req.body.question);
   models.Polls.create({
     question: req.body.question
   })
@@ -27,6 +29,7 @@ router.post('/', (req, res) => {
   })
 });
 
+
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
@@ -37,7 +40,7 @@ router.get('/:id', (req, res) => {
   })
   .then(poll => {
     res.json(poll);
-  });
+  })
 });
 
 // This route is used for adding a choice for a specific poll
@@ -45,7 +48,7 @@ router.get('/:id', (req, res) => {
 //  The choice description is in the parameters
 router.post('/:id/choices', (req, res) => {
   models.Polls.findById(parseInt(req.params.id))
-    .then(poll => {
+    .then( (poll) => {
       models.Choices.create({
         description: req.body.description,
         PollId: poll.id
@@ -57,6 +60,41 @@ router.post('/:id/choices', (req, res) => {
     .catch(() => {
       console.log('error here')
       res.sendStatus(400);
+    });
+});
+
+
+// ============================================
+// =========== Update Poll Question ===========
+// ============================================
+
+router.put('/:id', (req, res) => {
+  console.log("\n\nquestion: \n\n", req.body.question);
+
+  models.Polls.findById(parseInt(req.params.id))
+  .then( (poll) => { 
+    poll.update({ question: req.body.question }).then( (poll) => res.json(poll) )
+  })
+  .catch(() => {
+    res.sendStatus(400);
+
+  });
+
+});
+
+
+// ============================================
+// =========== Delete Poll Question ===========
+// ============================================
+
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then( poll => { 
+      poll.destroy();
+      res.sendStatus(200);
+    })
+    .catch(() => {
+    res.sendStatus(400);
     });
 });
 
