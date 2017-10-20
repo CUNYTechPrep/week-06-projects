@@ -10,6 +10,7 @@ const PollsController = {
     router.post('/', this.create);
     router.put('/:id', this.update);
     router.delete('/:id', this.delete);
+    router.get('/:id/choices/:choice_id/votes', this.votes);
 
     return router;
   },
@@ -82,7 +83,20 @@ const PollsController = {
           id: req.params.id
         });
       });
-  }
+  },
+
+  // show number of voters for choice with specific id
+  votes(req, res) {
+        choiceId = parseInt(req.params.choice_id);
+        db.answers.findAndCountAll({
+            where: {
+                choice_id: choiceId
+            }
+        })
+        .then((count) => {
+            res.json(count);
+        });
+    },
 };
 
 

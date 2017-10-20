@@ -15,7 +15,7 @@ const UsersController = {
 
   // retrieves a list of all users
   index(req, res) {
-    db.User.findAll()
+    db.users.findAll()
       .then((allUsers) => {
         res.json(allUsers);
       });

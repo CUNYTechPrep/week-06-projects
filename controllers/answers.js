@@ -31,10 +31,10 @@ const AnswersController = {
       })
       .then((answer) => {
         res.json(answer);
-      })
-      .catch(() => {
-        res.sendStatus(400);
       });
+      // .catch(() => {
+      //   res.sendStatus(400);
+      // });
   },
 
   // for future development
