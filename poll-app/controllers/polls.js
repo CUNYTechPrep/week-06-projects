@@ -60,5 +60,34 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+//This route is used to update a specific poll question
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    poll.update({
+      question: req.body.question
+    });
+    res.json(poll);
+  })
+   .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+//This route is used to delete a specific poll object
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      poll.destroy();
+      })
+    .then(() => {
+        res.sendStatus(202);
+      })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
 
 module.exports = router;
