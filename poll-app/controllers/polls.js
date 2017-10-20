@@ -27,6 +27,31 @@ router.post('/', (req, res) => {
   })
 });
 
+router.put('/:id', (req, res) => {
+	let pollId = parseInt(req.params.id);
+	let questionText = req.body.question;
+	// apparently, when you put data in application/json, it is part of the
+	// response body. Upon looking at the post requests, this behavior is
+	// similar.
+	//console.log(req);
+	//console.log(req.params);
+	//console.log(req.body);
+	models.Polls.findById(parseInt(req.params.id))
+	.then(poll => {
+		poll.update({question : questionText});
+	})
+	.catch(error => {
+		res.json({
+				description:`Could not find record with id ${pollId}`,
+				error
+		})
+		.sendStatus(404);
+	})
+	.then(updatedPoll => {
+		res.json(updatedPoll);
+	});
+})
+
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
@@ -59,6 +84,46 @@ router.post('/:id/choices', (req, res) => {
       res.sendStatus(400);
     });
 });
+
+// Delete a post, and all associated choices.
+router.delete('/:id', (req, res) => {
+	//* With a bulk destroy.
+	let pollId = parseInt(req.params.id);
+	models.Choices.destroy({
+		where: {
+			PollId: pollId
+		}
+	})
+	.then(() => {
+		return models.Polls.findById(pollId);
+	})
+	.then(poll => poll.destroy())
+	.then(() => {
+		res.json('Poll deleted!');
+	})
+	//*/
+	/* With multiple requests
+		models.Polls.findById(parseInt(req.params.id), {
+			include: [{model: models.Choices}]
+		})
+		.then(poll => {
+			return Promise.all(poll.Choices.map(choice => choice.destroy()));
+		})
+		.then(() => models.Polls.findById(parseInt(req.params.id)))
+		.then(poll => poll.destroy())
+		.then(() => {
+			res.json('Poll deleted!');
+		});
+	//*/
+	/*
+	models.Polls.findById(parseInt(req.params.id))
+	.then(poll => {
+		return poll.destroy()
+	}).then(() => {
+		res.json('Poll deleted!');
+	})
+	*/
+})
 
 
 module.exports = router;
