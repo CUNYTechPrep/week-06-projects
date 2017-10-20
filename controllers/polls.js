@@ -88,9 +88,11 @@ const PollsController = {
   // show number of voters for choice with specific id
   votes(req, res) {
         choiceId = parseInt(req.params.choice_id);
+        pollId = parseInt(req.params.id);
         db.answers.findAndCountAll({
             where: {
-                choice_id: choiceId
+                choice_id: choiceId,
+                poll_id: pollId
             }
         })
         .then((count) => {
