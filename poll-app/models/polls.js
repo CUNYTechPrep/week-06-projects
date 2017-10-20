@@ -1,12 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
-  const Polls = sequelize.define('Polls', {
+  const Polls = sequelize.define("Polls", {
     question: DataTypes.STRING
   });
 
-  Polls.associate = (models) => {
-    models.Polls.hasMany(models.Choices);
-  }
+  Polls.associate = models => {
+    models.Polls.hasMany(models.Choices, {
+      onDelete: "CASCADE",
+      hooks: true
+    });
+  };
 
   return Polls;
 };
-
