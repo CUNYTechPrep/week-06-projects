@@ -60,7 +60,7 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
-// update the question field
+// here updates 
 router.put('/:id/update', (req, res) => {
   models.Polls.findById(parseInt(req.params.id))
     .then(poll => {
@@ -81,6 +81,14 @@ router.delete('/:id/delete', (req, res) => {
     include: [{
       model: models.Choices
     }]
+    .then(poll => {
+      poll.destroy({ force: true })
+    })
+    .then(()=> {
+      res.json(`Poll ${req.params.id} deleted`);
+    })
+    .catch(() => {
+      res.sendStatus(400);
   })
 })
 
