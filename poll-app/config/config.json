@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "ctp_user",
-    "password": "ctp_user",
-    "database": "poll_development",
+    "username": "week6",
+    "password": "week6",
+    "database": "A_development",
     "host": "127.0.0.1",
     "dialect": "postgresql"
   },
