@@ -12,7 +12,7 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      created_by: {
+      author: {
         type: DataTypes.STRING,
         allowNull: false,
       },

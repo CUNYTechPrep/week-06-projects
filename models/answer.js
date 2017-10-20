@@ -1,14 +1,15 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  const Answer = sequelize.define('answers', {}, {
-    classMethods: {
-      associate: function (db) {
-        db.answers.belongsTo(db.users);
-        db.answers.belongsTo(db.polls);
-        db.answers.belongsTo(db.choices);
-      }
-    },
-    underscored: true
-  });
-  return Answer;
+    const Answer = sequelize.define('answers', {}, {
+      underscored: true
+    });
+
+    Answer.associate = function(db) {
+        Answer.belongsTo(db.users);
+        Answer.belongsTo(db.choices);
+        Answer.belongsTo(db.polls);
+    }
+
+    return Answer;
 };

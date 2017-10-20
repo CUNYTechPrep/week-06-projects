@@ -25,7 +25,8 @@ const PollsController = {
   // creates a new poll object
   create(req, res) {
     db.polls.create({
-        question: req.body.question
+        question: req.body.question,
+        author: req.body.author
       })
       .then((poll) => {
         choices = req.body.choices;

@@ -1,15 +1,16 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  const Choice = sequelize.define('choices', {
-    description: DataTypes.STRING
-  }, {
-    classMethods: {
-      associate: function (db) {
-        db.choices.belongsTo(db.polls);
-      }
-    },
-    underscored: true,
-    timestamps: false
-  });
-  return Choice;
+    const Choice = sequelize.define('choices', {
+        description: DataTypes.STRING
+    }, {
+        underscored: true,
+        timestamps: false
+    });
+
+    Choice.associate = function(db) {
+        Choice.belongsTo(db.polls)
+    };
+
+    return Choice;
 };
