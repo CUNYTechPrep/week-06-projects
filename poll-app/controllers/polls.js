@@ -51,7 +51,7 @@ router.post("/:id/choices", (req, res) => {
     .then(poll => {
       models.Choices
         .create({
-          description: req.body.description,
+          body: req.body.description,
           PollId: poll.id
         })
         .then(choice => {
@@ -64,13 +64,18 @@ router.post("/:id/choices", (req, res) => {
     });
 });
 
-// Update a poll question text
-router.put("/:id", (req, res) => {
-  models.Polls
-    .update(updateValues, { where: { id: req.params.id } })
-    .then(result => {
-      res.json(updateValues);
-    });
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: []
+  })
+  .then(poll => {
+    // NOTE: DEBUG CODE
+    // console.log(poll);
+    // set the new value for question
+    poll.set('question', req.body.question);
+    poll.save();
+    res.json(poll);
+  })
 });
 
 // Add the user to delete a poll
