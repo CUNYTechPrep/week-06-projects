@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "ctp_user",
-    "password": "ctp_user",
-    "database": "poll_development",
+    "username": "poll_login",
+    "password": "poll_password",
+    "database": "poll_db",
     "host": "127.0.0.1",
     "dialect": "postgresql"
   },
