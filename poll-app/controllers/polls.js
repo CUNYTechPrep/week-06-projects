@@ -40,6 +40,43 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// This route is used to update the Poll description
+// The poll id is in the route parameters
+// The updated question description is in the parameters
+router.put('/:id', (req, res) => {
+  models.Polls.update({
+    question: req.body.question
+  }, {
+    where: { 
+      id: req.params.id 
+    }
+  }).then(() => {
+    res.sendStatus(200)
+  }).catch(() => {
+    res.sendStatus(400)
+  })
+});
+
+// This route is used to delete Polls
+// The poll id is in the route parameters
+router.delete('/:id', (req, res) => {
+  models.Choices.destroy({
+    where: {
+      PollId: req.params.id
+    }
+  }).then(() => {
+    models.Polls.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+  }).then(() => {
+    res.sendStatus(200)
+  }).catch(() => {
+    res.sendStatus(400)
+  })
+});
+
 // This route is used for adding a choice for a specific poll
 //  The poll id is in the route parameters
 //  The choice description is in the parameters
@@ -48,6 +85,7 @@ router.post('/:id/choices', (req, res) => {
     .then(poll => {
       models.Choices.create({
         description: req.body.description,
+        numVotes: 0,
         PollId: poll.id
       })
       .then((choice) => {
@@ -59,6 +97,5 @@ router.post('/:id/choices', (req, res) => {
       res.sendStatus(400);
     });
 });
-
 
 module.exports = router;
