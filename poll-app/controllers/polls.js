@@ -67,6 +67,8 @@ router.put('/update/:id', (req, res) => {
     where: {id: req.params.id } 
   }).then(() => {
     res.send("Updated Question ID#" + req.params.id + "!");
+  }).catch(() => {
+      res.sendStatus(400);
   })
 });
 
@@ -80,6 +82,8 @@ router.delete('/delete/:id', (req, res) => {
   })
   .then(() => {
     res.send("Poll#" + req.params.id + " is deleted.");
+  }).catch(() => {
+    res.sendStatus(400);
   })
 });
 module.exports = router;
