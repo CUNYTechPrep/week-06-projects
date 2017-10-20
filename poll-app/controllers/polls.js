@@ -60,6 +60,30 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+//delete choices first
+//delete a poll after
+router.delete('/:id', (req, res) =>{
+  models.Choices.destroy({
+    where: {
+      PollId: parseInt(req.params.id)
+    }
+  })  
+  .then((poll) => {
+    models.Polls.destroy({
+      where:{
+        id: parseInt(req.params.id)
+      }
+    })
+  })
+  .then(choices => {
+    models.Polls.findAll()
+    .then(allPolls => {
+      res.json(allPolls);
+    })
+  })
+});
+
+// this updates a poll
 router.put('/:id', (req, res) => {
   models.Polls.update({
     question: req.body.question
@@ -67,6 +91,11 @@ router.put('/:id', (req, res) => {
     where: {
       id: parseInt(req.params.id)
     }
+  }).then((poll) => {
+    models.Polls.findAll()
+    .then(allPolls => {
+      res.json(allPolls);
+    })
   });
 });
 
