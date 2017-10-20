@@ -50,6 +50,10 @@ router.put('/:id', (req, res) => {
     where: { 
       id: req.params.id 
     }
+  }).then(() => {
+    res.sendStatus(200)
+  }).catch(() => {
+    res.sendStatus(400)
   })
 });
 
