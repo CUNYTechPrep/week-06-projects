@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   models.Polls.findAll()
     .then((allPolls) => {
       res.json(allPolls);
-    })
+    });
 });
 
 // This route is for creating a new poll object
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 //  Note: this does NOT take an array of choices
 router.post('/', (req, res) => {
   models.Polls.create({
-    question: req.body.question
+    question: req.body.question,
   })
   .then((poll) => {
     res.json(poll);
@@ -60,5 +60,33 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+//This route is used to update poll question
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.update({
+      question: req.body.question
+    });
+    res.json(poll);
+  });
+});
+
+// This route is used to delete a poll question
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    models.Choices.destroy({where:{PollId: poll.id}})
+    poll.destroy();
+    res.json(poll);
+  });
+});
 
 module.exports = router;

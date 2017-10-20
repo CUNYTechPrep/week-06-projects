@@ -29,6 +29,8 @@ app.set('views', `${__dirname}/views/`);
 */
 
 
+app.set('view engine', 'handlebars');
+app.set('views', `${__dirname}/views/`);
 
 // Load up all of the controllers
 const controllers = require('./controllers');
