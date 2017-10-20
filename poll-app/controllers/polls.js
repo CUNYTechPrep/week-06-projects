@@ -83,7 +83,7 @@ router.delete('/:id', (req, res) => {
     }]
   })
   .then(poll => {
-
+    models.Choices.destroy({where:{PollId: poll.id}})
     poll.destroy();
     res.json(poll);
   });
