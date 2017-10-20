@@ -12,6 +12,10 @@ module.exports = {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      created_by: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       created_at: {
         allowNull: false,
         type: DataTypes.DATE
