@@ -1,13 +1,8 @@
 {
-<<<<<<< HEAD
-  "name": "backend-starter-code",
-  "version": "1.0.0",
-  "description": "Starter code for an Express/Sequelize backend.",
-=======
+
   "name": "poll-app",
   "version": "1.0.0",
   "description": "A polling app.",
->>>>>>> f13f4451ce7014c2bcbee2c40be85b72e43619c4
   "main": "app.js",
   "scripts": {
     "start": "nodemon -L app.js",
