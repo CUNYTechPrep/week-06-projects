@@ -60,5 +60,18 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  models.Polls.update({
+    question: req.body.question
+  }, {
+    where: {
+      id: parseInt(req.params.id)
+    }
+  })
+  .then(polls => {
+    res.json(polls)
+  });
+});
+
 
 module.exports = router;
