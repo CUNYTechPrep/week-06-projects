@@ -60,5 +60,43 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+//update the poll question
+//find the poll in models.Polls that id is req.params.id
+//update that polls question with req.body.question
+router.put('/:id', (req, res) => {
+  models.Polls.update(
+    {
+      question: req.body.question
+    },
+    {
+      where : {
+        id: req.params.id
+      }
+    }
+  ).then( () => {
+    res.json('Updated Poll')
+  })
+});
+
+router.delete('/:id',(req,res)=>{
+ models.Choices.destroy(
+  {
+    where : {
+      PollId: req.params.id
+    }
+  }
+ ).then(()=>{
+   models.Polls.destroy({
+     where : {
+       id: req.params.id
+     }
+   })
+   res.json('Deleted Poll')
+ })
+   .catch(() => {
+     console.log('error here')
+     res.sendStatus(400);
+   });
+ });
 
 module.exports = router;
