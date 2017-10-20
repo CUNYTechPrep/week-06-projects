@@ -4,11 +4,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Polls.associate = (models) => {
-    models.Polls.hasMany(models.Choices, {
-      onDelete: "CASCADE",
-      hooks: true
-    });
-  };
+    models.Polls.hasMany(models.Choices);
+  }
 
   return Polls;
 };
+

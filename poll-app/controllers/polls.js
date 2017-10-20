@@ -60,5 +60,30 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+// update the question field
+router.put('/:id/update', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      poll.question = req.body.question;
+      poll.save()
+      .then(poll => {
+        res.json(poll);
+      })
+    })
+    .catch(() => {
+      res.sendStatus(400);
+    });
+});
+
+// here removes the poll created
+router.delete('/:id/delete', (req, res) => {
+  models.Polls.findById( parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+})
+
+
 
 module.exports = router;
