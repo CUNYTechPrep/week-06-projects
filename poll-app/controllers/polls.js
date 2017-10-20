@@ -27,6 +27,9 @@ router.post('/', (req, res) => {
   })
 });
 
+
+
+
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
@@ -52,6 +55,41 @@ router.post('/:id/choices', (req, res) => {
       })
       .then((choice) => {
         res.json(choice);
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+// This route is used for changing the text for a specific poll
+//  The poll id is in the route parameters
+//  The question is in the parameters
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      poll.updateAttributes({
+        question: req.body.question
+      })
+      .then((choice) => {
+        res.json(poll);
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+// This route is used for deleting a specific poll
+//  The poll id is in the route parameters
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      poll.destroy()
+      .then((choice) => {
+        res.sendStatus(200);
       })
     })
     .catch(() => {
