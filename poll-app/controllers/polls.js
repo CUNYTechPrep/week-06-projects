@@ -61,4 +61,34 @@ router.post('/:id/choices', (req, res) => {
 });
 
 
+// Route used for updating the poll
+router.put('/put/:id', (req, res) => {
+   models.Polls.update({
+       question: req.body.question}, 
+    { where: {id: req.params.id}                  
+    })
+    .then(() => {
+    res.send("Updated" + req.params.id);
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  })
+});
+
+// Route used for deleting poll
+router.delete('/delete/:id', (req, res) => { 
+    models.Polls.destroy({
+        where: {id: req.params.id}    
+    })
+    models.Choices.destroy({
+        where: {PollId: req.params.id}
+    })
+    .then(() => {
+    res.send("Deleted" + req.params.id);
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  })
+});
+
 module.exports = router;
