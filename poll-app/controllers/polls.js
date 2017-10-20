@@ -82,6 +82,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   models.Polls.findById(parseInt(req.params.id))
   .then(poll => { 
+    models.Choices.destroy({where: {PollId: req.params.id}});
     poll.destroy();
     res.sendStatus(200);
   })
