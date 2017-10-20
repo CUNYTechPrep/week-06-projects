@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Polls.associate = (models) => {
-    models.Polls.hasMany(models.Choices);
+    models.Polls.hasMany(models.Choices);//, {onDelete: 'CASCADE'});
   }
 
   return Polls;
