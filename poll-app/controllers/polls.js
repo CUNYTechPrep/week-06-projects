@@ -27,6 +27,49 @@ router.post('/', (req, res) => {
   })
 });
 
+//update question text
+
+router.put('/:id', (req, res) => {
+  models.Polls.findById(req.params.id)
+  .then(poll => {
+    poll.update({
+      question: req.body.question
+    });
+    return poll;
+  })
+  .then((poll) => {
+    res.json(poll);
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  })
+});
+
+
+// delete a poll and choices assocaited with it
+
+router.delete('/:id', (req, res) => {
+  models.Choices.destroy({
+    force:true,
+    where:{
+      PollId: req.params.id
+    }
+  })
+  .then(() =>{
+    models.Polls.findById(req.params.id)
+    .then(poll => {
+        poll.destroy({force:true});
+    })
+  })
+  .then(()=> {
+    res.send("Deleted Succefully");
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  })
+});
+
+
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
