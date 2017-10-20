@@ -62,3 +62,52 @@ router.post('/:id/choices', (req, res) => {
 
 
 module.exports = router;
+
+// This route is used to update a question
+
+router.put('/:id/rename', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then((poll) => {
+    poll.updateAttributes({
+      question: req.body.question
+    })
+  })
+  .then(poll => {
+    res.json(poll);
+  });
+});
+
+//This route deletes a question and all its choices
+router.delete('/:id/delete', (req, res) => {
+  models.Choices.destroy({
+    where: {
+      PollId: req.params.id
+    }
+  })
+  models.Polls.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((choices) =>{
+    res.json();
+  })
+})
+/*
+router.delete('/:id/delete', (req, res) => {
+  models.Polls.findAll({
+    include: [{
+      model: models.Choices,
+      PollId: req.params.id
+    }]
+  })
+  .then((choices) =>{
+    
+    })
+  
+});
+*/
