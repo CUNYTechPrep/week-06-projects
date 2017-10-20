@@ -67,9 +67,6 @@ router.put('/:id', (req, res) => {
     where: {
       id: parseInt(req.params.id)
     }
-  })
-  .then(polls => {
-    res.json(polls)
   });
 });
 
