@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   models.Polls.findAll()
     .then((allPolls) => {
       res.json(allPolls);
-    })
+    });
 });
 
 // This route is for creating a new poll object
@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
   })
   .catch(() => {
     res.sendStatus(400);
-  })
+  });
 });
 
 // This route is used to retrieve a specific poll object
@@ -40,6 +40,31 @@ router.get('/:id', (req, res) => {
   });
 });
 
+router.put('/:id', (req, res) => {
+  models.Polls.update({
+    question: req.body.question
+  })
+  .then((poll) => {
+    res.json(poll);
+  })
+  .catch(() =>{
+    res.sendStatus(400);
+  });
+});
+
+
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  }).then(poll => {
+    return poll.destroy();
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  });
+});
 // This route is used for adding a choice for a specific poll
 //  The poll id is in the route parameters
 //  The choice description is in the parameters
@@ -59,6 +84,23 @@ router.post('/:id/choices', (req, res) => {
       res.sendStatus(400);
     });
 });
+
+router.put('/:id/choices', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    models.Choices.update({
+      description: req.body.question,
+      PollId: poll.id
+    })
+    .then((choice) => {
+      res.json(choice);
+    })
+  })
+  .catch(() =>{
+    res.sendStatus(400);
+  });
+});
+
 
 
 module.exports = router;
