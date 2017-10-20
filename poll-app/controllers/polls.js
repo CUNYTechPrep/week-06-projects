@@ -59,6 +59,42 @@ router.post('/:id/choices', (req, res) => {
       res.sendStatus(400);
     });
 });
+// putting route that allows a user to update a poll question 
+router.put('/:id/choices'), (req, res) => {
+ 
+      models.Choices.create({
+        description: req.body.description,
+        PollId: poll.id
+      }) // allowing the user to update a poll question 
+});
+
+//add a delete router that also deletes the associated Choices
+
+router.delete('/:id/choices'), (req, res) => {
+
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      models.Choices.create({
+        description: req.body.description,
+        PollId: poll.id
+      })
+      .then((choice) => {
+        res.json(choice);
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+
+    User.Remove({'/:id/choices'}, function(err) {
+        if (!err) {
+            return res.send('Choice Deleted!');
+        } else {
+            return res.send('Error!');
+        }
+    });
+});
 
 
 module.exports = router;
