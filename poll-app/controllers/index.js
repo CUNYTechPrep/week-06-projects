@@ -6,6 +6,4 @@ router.use('/polls', require('./polls'));
 router.use('/', require('./home'));
 
 
-
-
 module.exports = router;
