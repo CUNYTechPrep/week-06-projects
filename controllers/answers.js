@@ -14,7 +14,7 @@ const AnswersController = {
   },
 
 
-  // retrieves all user answers to polls
+  // retrieves all user answer records
   index(req, res) {
     db.answers.findAll()
       .then((allAnswers) => {
@@ -31,10 +31,10 @@ const AnswersController = {
       })
       .then((answer) => {
         res.json(answer);
+      })
+      .catch(() => {
+        res.sendStatus(400);
       });
-      // .catch(() => {
-      //   res.sendStatus(400);
-      // });
   },
 
   // for future development
