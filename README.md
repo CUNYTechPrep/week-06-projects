@@ -7,8 +7,8 @@
 - **Poll** - contains question and poll author
 - **Choice**  - contains id of the poll to which it belongs and a description (text)
 - **Answer**  - record about user's answer; contains user id, poll id and choice id
--- *user can vote only once in each poll*
--- *only one choice per poll is allowed*
+&nbsp;&nbsp;-- *user can vote only once in each poll*
+&nbsp;&nbsp;-- *only one choice per poll is allowed*
 
 ## Database
 
