@@ -60,7 +60,6 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
-
 // This route is used for updating a question to a specific poll
 //  The poll id is in the route parameters
 //  The choice description is in the parameters
