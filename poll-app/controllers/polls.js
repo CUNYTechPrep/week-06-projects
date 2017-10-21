@@ -40,6 +40,42 @@ router.get('/:id', (req, res) => {
   });
 });
 
+
+router.put('/:id', (req,res) =>{
+  models.Polls.findById(parseInt(req.params.id),{
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.set('question', req.body.question);
+    poll.save()
+    res.json(poll);
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.destroy();
+    res.json(poll);
+  });
+});
+
+
+
+// router.put(':id', (req,res) => {
+//   modles.Polls.findbyId(parseInt(req.params.id),{
+    
+//   })
+
+
+
+// })
 // This route is used for adding a choice for a specific poll
 //  The poll id is in the route parameters
 //  The choice description is in the parameters
