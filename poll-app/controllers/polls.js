@@ -3,6 +3,38 @@ const models = require('../models');
 
 const router = express.Router();
 
+//This put function updates the poll question text
+router.put('/:id', (req, res) => {
+  const questionId =req.params.id;
+  let questionBody = req.body.question;
+  models.Polls.findById(parseInt(questionId), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then((poll) => {
+    poll.update({
+        question: questionBody
+      });
+
+      res.json(poll);
+  });
+}); // end of put function
+
+//This delete function deletes the poll and the choices
+router.delete('/:id', (req, res) => {
+  const questionId = req.params.id;
+  models.Polls.findById(parseInt(questionId), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+
+  .then(poll => {
+    poll.destroy();
+    res.json(poll);
+  });
+});
 
 // This route retrieves a list of all poll questions
 router.get('/', (req, res) => {
