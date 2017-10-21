@@ -3,6 +3,7 @@ const models = require('../models');
 
 const router = express.Router();
 
+const Polls = models.Polls;
 
 // This route retrieves a list of all poll questions
 router.get('/', (req, res) => {
@@ -59,6 +60,43 @@ router.post('/:id/choices', (req, res) => {
       res.sendStatus(400);
     });
 });
+//This route is used to PUT a new value for an existing
+//poll question. used to update questions text
+router.put('/:id/choices', (req,res) => {
+  models.Polls.update({
+    question: req.body.question
+  }, {
+    where:{
+      id:req.params.id }
+  })
+  .then(() =>{
+    res.sendStatus(200);
+  })
+  .catch(() =>{
+    res.sendStatus(400);
+  })
+});//END PUT
+
+//This route is used to DELETE all choices associated
+//with a poll and the poll itself based on the poll id
+router.delete('/:id', (req, res) =>{
+  models.Choices.destroy({
+    where:{
+      PollId: req.params.id }
+  })
+  .then(() =>{ models.Polls.destroy({
+    where:{
+      id: req.params.id }
+    })
+  })
+  .then(() =>{
+    res.sendStatus(200);
+  })
+  .catch(() =>{
+    res.sendStatus(400);
+  })
+});//END DELETE
+
 
 
 module.exports = router;
