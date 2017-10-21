@@ -1,0 +1,22 @@
+<div class="show-container">
+  <a class="btn btn-info btn-lg" href="/polls/new"> Create A Poll </a>
+
+  <table class="table">
+    <tr style="background-color: #d9d9db;">
+      <th>ID</th>
+      <th>TITLE</th>
+      <th></th>
+    </tr>
+    {{#each allPolls}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{question}}</td>
+        <td class="text-center">
+          <a class="btn btn-success btn-sm" href="/polls/{{id}}">Show</a>
+          <a class="btn btn-warning btn-sm" href="/polls/{{id}}/edit">Edit</a>
+        </td>
+      </tr>
+    {{/each}}
+  </table>
+
+</div>

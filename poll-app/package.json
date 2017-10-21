@@ -7,7 +7,7 @@
     "start": "nodemon -L app.js",
     "test": "jest"
   },
-  "author": "Edgardo Molina",
+  "author": "",
   "license": "ISC",
   "devDependencies": {
     "jest": "^21.2.1"
@@ -16,6 +16,7 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.1",
     "express-handlebars": "^3.0.0",
+    "method-override": "^2.3.10",
     "nodemon": "^1.12.1",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
