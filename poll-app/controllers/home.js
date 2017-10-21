@@ -10,5 +10,7 @@ router.get('/', (req, res) => {
   });
 });
 
-
+router.delete('/', function (req, res) {
+  res.send('Got a DELETE request at /user')
+})
 module.exports = router;
