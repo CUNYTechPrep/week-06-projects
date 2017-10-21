@@ -1,6 +1,7 @@
 const express = require('express');
 const models = require('../models');
 
+// load up our router, maybe more familiar?
 const router = express.Router();
 
 
