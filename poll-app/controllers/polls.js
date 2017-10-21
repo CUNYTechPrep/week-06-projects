@@ -3,7 +3,6 @@ const models = require('../models');
 
 const router = express.Router();
 
-
 // This route retrieves a list of all poll questions
 router.get('/', (req, res) => {
   models.Polls.findAll()
@@ -40,6 +39,41 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// This route is used to update a poll question based on a poll id.
+// The updated question text is in the body parameters
+router.put('/:id', (req, res) => {
+  // find the poll using the id
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    // then use the poll and update the question field
+    poll.update({question: req.body.question});
+    // and return the updated poll as a json
+    res.json(poll);
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  });
+});
+
+// This route is used to delete a specific poll based on the poll id.
+// It also deletes any choices associated with that poll
+router.delete('/:id', (req, res) => {
+  // get the poll using the poll id and display its corresponding choices
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    // then destroy the poll,
+    poll.destroy();
+    // destroy all the corresponding choices that have that poll id,
+    models.Choices.destroy({where: {PollId: req.params.id}});
+    // and display the deleted poll and its choices as a json object
+    res.json(poll);
+  });
+});
+
 // This route is used for adding a choice for a specific poll
 //  The poll id is in the route parameters
 //  The choice description is in the parameters
@@ -55,10 +89,8 @@ router.post('/:id/choices', (req, res) => {
       })
     })
     .catch(() => {
-      console.log('error here')
       res.sendStatus(400);
     });
 });
-
 
 module.exports = router;
