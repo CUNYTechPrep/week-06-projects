@@ -1,0 +1,39 @@
+.navbar {
+    margin-bottom: 0;
+}
+.jumbotron {
+  background-color: #8d9096;
+  text-align: center;
+  color: white;
+  padding: 100px;
+}
+
+.jumbotron .btn {
+  width: 20%;
+  margin: 30px;
+}
+
+.form-container {
+  width: 33%;
+  margin: auto;
+  margin-top: 137px;
+}
+
+.form-container button {
+  width: 100%;
+}
+
+.show-container {
+  width: 70%;
+  margin: auto;
+  margin-top: 70px;
+}
+
+.show-container table {
+  margin-top: 50px;
+}
+
+.show-container tr:hover {
+  background-color: #efeff2
+
+}
