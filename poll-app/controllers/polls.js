@@ -71,3 +71,17 @@ router.put('/:id/', (req, res) => {
   })
 })
 
+
+
+// To delete poll question 
+router.delete('/:id/', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id)).then(poll => {
+    poll.destroy()
+  })
+  .catch( () => {
+    console.log('error here');
+    res.sendStatus(400);
+  })
+});
+module.exports = router;
+
