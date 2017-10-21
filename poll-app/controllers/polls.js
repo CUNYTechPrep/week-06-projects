@@ -60,5 +60,35 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+   models.Polls.update({
+       question: req.body.question
+     }, 
+    { 
+      where: {
+        id: req.params.id}                  
+    })
+    .then(() => {
+    res.send("Updated" + req.params.id);
+  })
+});
+
+// Route used for deleting poll
+router.delete('/:id', (req, res) => { 
+    models.Polls.destroy({
+        where: {
+          id: req.params.id}    
+    })
+    models.Choices.destroy({
+        where: {
+          PollId: req.params.id}
+    })
+    .then(() => {
+    res.send(
+      "Deleted" + req.params.id);
+  })
+ 
+});
+
 
 module.exports = router;
