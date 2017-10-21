@@ -6,7 +6,7 @@ const router = express.Router();
 
 // This route retrieves a list of all poll questions
 router.get('/', (req, res) => {
-  models.Polls.findAll()
+    models.Polls.findAll()
     .then((allPolls) => {
       res.json(allPolls);
     })
@@ -60,5 +60,30 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+//This route is used for updating a specific poll
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then( (poll) => {
+    poll.update({
+      question: req.body.question
+    })
+    .catch( () => {
+      console.log('error here')
+      res.sendStatus(400);
+    })
+  })
+});
+
+//This route is used for deleting a specific poll
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then( (poll) => {
+    poll.destroy()
+  })
+  .catch( () => {
+    console.log('error here');
+    res.sendStatus(400);
+  })
+});
 
 module.exports = router;
