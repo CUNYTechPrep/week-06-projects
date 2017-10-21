@@ -1,0 +1,15 @@
+<div class="form-container">
+  <h1 class="text-center">Edit polls {{poll.id}}</h1>
+  <br />
+
+  <form action="/polls/{{poll.id}}?_method=PUT" method="POST">
+    <div class="form-group">
+        <label>Question: </label>
+        <input class="form-control" type="text" name="question" value="{{poll.question}}">
+    </div>
+    <button type="submit" class="btn btn-secondary">Update</button>
+  </form>
+  <form class="delete-form" action="/polls/{{poll.id}}?_method=DELETE" method="POST">
+      <input type="submit" class="btn btn-xs btn-danger" value="Delete">
+  </form>
+</div>
