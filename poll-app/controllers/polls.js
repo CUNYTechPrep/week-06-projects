@@ -60,5 +60,29 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    poll.update({
+      question: req.body.question
+    })
+    .then(poll => {
+      res.json(poll);
+    })
+  })
+  .catch(() =>{
+    res.sendStatus(400);
+  })
+});
+
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    poll.destory();
+  })
+  .catch(() => {
+    res.sendStatus(400);
+  }) 
+});
 
 module.exports = router;
