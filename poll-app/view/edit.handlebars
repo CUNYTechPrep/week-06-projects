@@ -1,0 +1,12 @@
+<h1>Edit polls {{poll.id}}</h1>
+  <br />
+
+<form action="/polls/{{poll.id}}" method="PUT">
+        <label>Question: </label>
+        <input type="text" name="question" value="{{poll.question}}">
+    <button type="submit">Update</button>
+</form>
+
+  <form action="/polls/{{poll.id})" method="DELETE">
+      <input type="submit" value="Delete">
+  </form>
