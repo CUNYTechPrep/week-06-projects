@@ -27,6 +27,24 @@ router.post('/', (req, res) => {
   })
 });
 
+//Allow the user to update a Poll question text
+//Add a PUT route that allows this
+router.put('/:id', (req, res, next) => {
+  models.Polls.update({
+    question: req.body.question,
+  },
+  { 
+    where: {
+      id: req.params.id,
+    },returning: true,
+  })
+  .then(([rowsUpdate, updatedRow]) => {
+    res.json(updatedRow);
+    console.log("updatedRow");
+  })
+  .catch(next)
+});
+
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
@@ -58,6 +76,25 @@ router.post('/:id/choices', (req, res) => {
       console.log('error here')
       res.sendStatus(400);
     });
+});
+
+//Allow the user to delete a Poll
+//Add the DELETE route that allows this
+//Should also delete the associated Choice
+router.delete('/:id', (req, res) => {
+      models.Choices.destroy({
+        where: {
+          PollId: req.params.id,
+        },
+      }).then(() => {
+        models.Polls.destroy({
+          where: {
+            id: req.params.id,
+          }
+        })
+      }).then(() => {
+        res.redirect('/polls');
+      })
 });
 
 

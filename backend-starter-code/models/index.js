@@ -1,3 +1,4 @@
+// does not need to edit this file, it reads all files in this model file and makes them all available through an object it exports
 var fs        = require('fs');
 var path      = require('path');
 var Sequelize = require('sequelize');

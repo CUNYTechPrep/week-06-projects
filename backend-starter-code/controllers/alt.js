@@ -1,6 +1,7 @@
 const express = require('express');
 const models = require('../models');
 
+// another way to write controller, first it has a register router function, it maps all the routes to function names
 const AltController = {
   registerRouter() {
     const router = express.Router();
