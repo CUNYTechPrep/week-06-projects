@@ -30,15 +30,18 @@ router.post('/', (req, res) => {
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
-  models.Polls.findById(parseInt(req.params.id), {
-    include: [{
-      model: models.Choices
-    }]
-  })
+  models.Polls.findById(parseInt(req.params.id))
   .then(poll => {
+    polls.update({
+      question: req.body.question
+    });
     res.json(poll);
-  });
+  })
+  .catch(() => {
+    res.sentStatus(400);
+    });
 });
+
 
 // This route is used for adding a choice for a specific poll
 //  The poll id is in the route parameters
@@ -60,5 +63,33 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  models.Polls.update(
+    {question:req.body.question},
+    {where: {id:req.params.id}}
+    ).then(() => {
+      res.json('Poll is Updated')
+    })     
+    //.catch(() => {
+    //  console.log('error here')
+    //  res.sendStatus(400);
+    //})
+});
+
+router.delete('/:id', (req, res) => {
+  models.Choices.destroy(
+    {where:{PollId:req.params.id}}
+    ).then(()=>
+    {
+    models.Polls.destroy(
+    {where:{id:req.params.id}}
+    )
+    res.json("Poll is deleted")
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
 
 module.exports = router;
