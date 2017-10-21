@@ -8,7 +8,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   models.Polls.findAll()
     .then((allPolls) => {
-      res.json(allPolls);
+      res.render('index', {allPolls});
     })
 });
 
@@ -20,13 +20,19 @@ router.post('/', (req, res) => {
     question: req.body.question
   })
   .then((poll) => {
-    res.json(poll);
+    res.redirect("/polls");
   })
   .catch(() => {
     res.sendStatus(400);
   })
 });
 
+// *NEW
+ router.get('/new', (req, res) => {
+   res.render('new');
+ });
+  
+  
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
@@ -36,7 +42,7 @@ router.get('/:id', (req, res) => {
     }]
   })
   .then(poll => {
-    res.json(poll);
+    res.render('show', {poll});
   });
 });
 
@@ -62,3 +68,8 @@ router.post('/:id/choices', (req, res) => {
 
 
 module.exports = router;
+
+
+
+
+
