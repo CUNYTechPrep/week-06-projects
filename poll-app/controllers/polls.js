@@ -55,10 +55,33 @@ router.post('/:id/choices', (req, res) => {
       })
     })
     .catch(() => {
-      console.log('error here')
+      console.log('error here');
       res.sendStatus(400);
     });
 });
 
+//To update poll question text
+router.put('/:id/', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id)).then(poll => {
+    poll.update({question: req.body.question.toString(),})
+  })
+  .catch( () => {
+    console.log('error here');
+    res.sendStatus(400);
+  })
+})
 
+
+
+// To delete poll question 
+router.delete('/:id/', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id)).then(poll => {
+    poll.destroy()
+  })
+  .catch( () => {
+    console.log('error here');
+    res.sendStatus(400);
+  })
+});
 module.exports = router;
+
