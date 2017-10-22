@@ -3,7 +3,6 @@ const models = require('../models');
 
 const router = express.Router();
 
-
 // This route retrieves a list of all poll questions
 router.get('/', (req, res) => {
   models.Polls.findAll()
@@ -58,6 +57,40 @@ router.post('/:id/choices', (req, res) => {
       console.log('error here')
       res.sendStatus(400);
     });
+});
+
+// PUT route to allow user to update a poll
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      poll.update({
+        question: req.body.question,
+      })
+      .then((poll) => {
+        res.json(poll);
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+
+// Allows user to delete a Poll
+// It also deletes the associated Choices
+router.delete('/:id/', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    poll.destroy()
+    .then((poll)=> {
+      res.json('Successfully deleted poll')
+    })
+  })
+  .catch( () => {
+    console.log('error here');
+    res.sendStatus(400);
+  })
 });
 
 
