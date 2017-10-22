@@ -60,5 +60,79 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+// This route is used for updating the poll question 
+// Based on the ID of the poll
+
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      models.Polls.update({
+        question: req.body.question,        
+      }, {
+        where: {
+          id: poll.id,
+        }
+      })
+      .then((poll) => {
+        res.json(poll);
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+// This route is used for deleting the pollquestion
+// Based on the ID of the poll
+
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      models.Choices.destroy({
+          where: {
+            PollId: poll.id,
+          }
+      }) //models.Choices.Destroy
+      
+      models.Polls.destroy({
+        where: {
+          id: poll.id,
+        }
+      })  //models.Polls
+      
+      .then((poll) => {
+        res.json(poll);
+      })
+    }) //then
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+/*
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      models.Polls.destroy({
+        where: {
+          id: poll.id,
+        }
+      })
+      .then((poll) => {
+        models.Choices.destroy({
+        where: {
+          PollId: poll.id,
+        }
+      })
+      .then((poll) => {
+        res.json(poll);
+      })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+*/
 
 module.exports = router;
