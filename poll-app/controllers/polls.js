@@ -27,6 +27,26 @@ router.post('/', (req, res) => {
   })
 });
 
+router.put('/:id/edit', (req, res) => {
+  models.Polls.findOne({
+    where: {
+      question: req.body.question
+    }
+  })
+    .then((poll) => {
+      (poll ? res.render('polls/edit', { poll }) : res.redirect('/polls'));
+    })
+});
+
+router.delete('/:id', (req, res) => {
+  modes.Post.delete({
+    question: req.body.question,
+    model: models.Choices
+  }).then((poll) => {
+    res.redirect('/polls');
+  })
+});
+
 // This route is used to retrieve a specific poll object
 //  The query also retrieves all associated choices for the poll
 router.get('/:id', (req, res) => {
