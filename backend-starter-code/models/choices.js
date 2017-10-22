@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const Choices = sequelize.define('Choices', {
-        text: DataTypes.STRING
+        description: DataTypes.STRING
     });
 
     Choices.associate = (models) => {

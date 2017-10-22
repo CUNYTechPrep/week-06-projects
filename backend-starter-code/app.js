@@ -9,6 +9,13 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const expressSession = require('express-session');
+const passport = require('./middlewares/authentication');
+
+app.use(expressSession(({secret: 'keyboard cat'})));
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // Uncomment the following if you want to serve up static assets.
 // (You must create the public folder)
@@ -37,7 +44,7 @@ app.use(controllers)
 
 // First, make sure the Database tables and models are in sync
 // then, start up the server and start listening.
-models.sequelize.sync({force: false})
+models.sequelize.sync({force: true})
   .then(() => {
     app.listen(PORT, () => {
       console.log(`Server is up and running on port: ${PORT}`)

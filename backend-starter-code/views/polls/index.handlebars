@@ -1,0 +1,25 @@
+<h1>Here are all the polls you can vote on: </h1>
+
+{{#each allPolls }}
+    <a href="polls/{{ this.id }}"><p>{{ this.question }}</p></a>
+{{/each }}
+
+<h1>Create a new poll:</h1>
+<form action="/polls" method="post">
+    <label>Question: </label>
+    <input type="text" name="question" placeholder="Ex. What is your favorite..." /> <br />
+    <label>Choice: </label>
+    <input type="text" name="choice1" placeholder="Ex. Yes..." /> <br />
+    <label>Choice: </label>
+    <input type="text" name="choice2" placeholder="Ex. No..." /> <br />
+    <label>Choice: </label>
+    <input type="text" name="choice3" placeholder="Ex. Maybe..." /> <br />
+    <label>Choice: </label>
+    <input type="text" name="choice4" placeholder="Ex. Blue..." /> <br />
+    <button type="submit">Submit</button>
+</form>
+<a href="/login">Login here</a>
+<br />
+<a href="/signup">Sign up here</a>
+<br />
+<a href="/logout">Logut</a>

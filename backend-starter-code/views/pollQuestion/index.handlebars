@@ -1,0 +1,14 @@
+<h1>{{ poll.question }}</h1>
+<form action="/polls/{{ poll.id }}" method="delete">
+    <button>DELETE Poll</button>
+</form>
+<br />
+<ul>
+    {{#each poll.Choices }}
+        {{#if this.description }}
+            <a href=""><li>{{ this.description }}</li></a>
+        {{/if }}
+    {{/each }}
+</ul>
+<br />
+<a href="/polls">&lt;-- Back to Polls</a>

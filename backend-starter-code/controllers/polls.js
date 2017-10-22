@@ -5,30 +5,93 @@ const PollsController = {
     registerRouter() {
         const router = express.Router();
 
-        router.get('/', this.index);
-        router.get('/questions', this.questions);
-        router.get('/questions/:id', this.questionNum);
+        router.get('/', this.getAllPolls);
+        router.post('/', this.createNewPoll);
+        router.get('/:id', this.pollNumber);
+        router.post('/:id/choices', this.choices);
+        router.delete('/:id', this.deletePoll);
 
         return router;
     },
 
-    index(req, res) {
-        res.json({
-            msg: "This is the polls app",
+    //This route retrieves a list of all poll questions
+    getAllPolls(req, res) {
+        models.Polls.findAll()
+            .then( (allPolls) => {
+                res.render('polls', {allPolls});
+            })
+    },
+
+    //This route is for creating a new poll object
+    //We provide the 'question' in the body parameters
+    //Note: this does NOT take an array of choices
+    createNewPoll(req, res) {
+        models.Polls.create({
+            question: req.body.question,
+        })
+        .then( (poll) => {
+            choices = [];
+            choices.push(req.body.choice1);
+            choices.push(req.body.choice2);
+            choices.push(req.body.choice3);
+            choices.push(req.body.choice4);
+
+            for (let choice in choices) {
+                models.Choices.create({
+                    PollId: poll.id,
+                    description: choices[choice],
+                })
+            }
+            //res.redirect('/polls')
+        })
+        .then( (choices) => {
+            res.redirect('/polls');
+        })
+        .catch( () => {
+            res.sendStatus(400);
+        })
+    },
+    
+    //This route is used to retrieve a specific poll object
+    //The query also retrieves all associated choices for the poll
+    pollNumber(req, res) {
+        models.Polls.findById(parseInt(req.params.id), {
+            include: [{
+                model: models.Choices,
+            }]
+        })
+        .then( poll => {
+            //res.json(poll);
+            res.render('pollQuestion', {poll})
         });
     },
 
-    questions(req, res) {
-        res.json({
-            msg: "Successful get to /polls/questions",
-        });
+    choices(req, res) {
+        models.Polls.findById(parseInt(req.params.id))
+            .then( poll => {
+                models.Choices.create({
+                    description: req.body.description,
+                    PollId: poll.id,
+                })
+                .then( (choice) => {
+                    res.json(choice);
+                })
+            })
+            .catch( () => {
+                console.log('error here');
+                res.sendStatus(400);
+            });
     },
 
-    questionNum(req, res) {
-        res.json({
-            msg: "Looking at question " + req.params.id,
-            id: req.params.id,
-        });
+    deletePoll(req, res) {
+        models.Polls.destroy({
+            where: {
+                id: req.params.id,
+            },
+        })
+        .then( () => {
+            res.redirect('/polls');
+        })
     },
 }
 
