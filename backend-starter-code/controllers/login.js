@@ -1,4 +1,4 @@
-//const passport = require('../middlewares/authentication');
+const passport = require('../middlewares/authentication');
 const router = require('express').Router();
 
 router.get('/', (req, res) => {

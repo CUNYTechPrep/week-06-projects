@@ -20,6 +20,8 @@
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.13.3",
-    "bcrypt": "*"
+    "bcrypt-nodejs": "0.0.3",
+    "passport": "0.4.0",
+    "passport-local": "1.0.0"
   }
 }
