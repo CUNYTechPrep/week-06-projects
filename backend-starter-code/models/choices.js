@@ -1,6 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
     const Choices = sequelize.define('Choices', {
-        description: DataTypes.STRING
+        description: DataTypes.STRING,
+        count: DataTypes.INTEGER,
     });
 
     Choices.associate = (models) => {

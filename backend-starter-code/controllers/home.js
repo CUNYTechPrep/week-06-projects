@@ -11,6 +11,7 @@ const HomeController = {
     router.get('/signup', passport.redirectIfLoggedIn('/polls'), this.signup);
     router.post('/signup', this.createUser);
     router.get('/logout', passport.redirectIfNotLoggedIn('/polls'), this.logout);
+    router.get('/success', this.thanksVoting);
 
     return router;
   },
@@ -32,9 +33,9 @@ const HomeController = {
 
   createUser(req, res) {
     models.Users.create({
-      firstName: req.params.firstName,
-      lastName: req.params.lastName,
-      email: req.params.email,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
       password_hash: req.body.password,
     }).then( (user) => {
       req.login(user, () => {
@@ -46,6 +47,10 @@ const HomeController = {
   logout(req, res) {
     req.logout();
     res.redirect('/login');
+  },
+
+  thanksVoting(req, res) {
+    res.render('thankYou');
   },
 }
 

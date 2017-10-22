@@ -1,15 +1,17 @@
 const express = require('express');
 const models = require('../models');
+const passport = require('../middlewares/authentication');
 
 const PollsController = {
     registerRouter() {
         const router = express.Router();
 
         router.get('/', this.getAllPolls);
-        router.post('/', this.createNewPoll);
-        router.get('/:id', this.pollNumber);
+        router.post('/', passport.redirectIfNotLoggedIn('/login'), this.createNewPoll);
+        router.get('/:id', passport.redirectIfNotLoggedIn('/login'), this.pollNumber);
         router.post('/:id/choices', this.choices);
         router.delete('/:id', this.deletePoll);
+        router.get('/:id/:choiceID/increment', this.incrementChoiceCount);
 
         return router;
     },
@@ -40,6 +42,7 @@ const PollsController = {
                 models.Choices.create({
                     PollId: poll.id,
                     description: choices[choice],
+                    count: 0,
                 })
             }
             //res.redirect('/polls')
@@ -92,6 +95,20 @@ const PollsController = {
         .then( () => {
             res.redirect('/polls');
         })
+    },
+
+    incrementChoiceCount(req, res) {
+        models.Choices.findById(parseInt(req.params.choiceID))
+            .then( choice => {
+                choice.increment('count');
+            })
+            .then( () => {
+                res.redirect('/success');
+            })
+            .catch( () => {
+                console.log('error here');
+                res.sendStatus(400);
+            })
     },
 }
 

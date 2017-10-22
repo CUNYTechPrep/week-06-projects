@@ -6,7 +6,7 @@
 <ul>
     {{#each poll.Choices }}
         {{#if this.description }}
-            <a href=""><li>{{ this.description }}</li></a>
+            <a href="{{ this.PollId }}/{{ this.id }}/increment"><li>{{ this.description }} [{{ this.count }}]</li></a>
         {{/if }}
     {{/each }}
 </ul>
