@@ -19,7 +19,7 @@ router.post('/', (req, res) => {
 router.put('/:id', (req, res) => {
   res.json({
     msg: "Successful PUT to '/' route",
-    id: req.params.id
+    id: req.params.id 
   });
 });
 
