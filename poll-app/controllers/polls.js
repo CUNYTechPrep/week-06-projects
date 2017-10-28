@@ -60,5 +60,40 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.update({
+      question: req.body.question
+    });
+    res.json(poll);
+  });
+});
+
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+  	models.Choices.destroy({
+          where: {
+            PollId: poll.id,
+          }
+      });
+
+    poll.destroy();
+
+    res.json({
+    msg: "Poll " + req.params.id +
+    " deleted along with all associated questions!"
+	});
+  });
+});
 
 module.exports = router;
