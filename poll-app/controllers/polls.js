@@ -81,9 +81,17 @@ router.delete('/:id', (req, res) => {
     }]
   })
   .then(poll => {
+  	models.Choices.destroy({
+          where: {
+            PollId: poll.id,
+          }
+      });
+
     poll.destroy();
+
     res.json({
-    msg: "Poll " + req.params.id + " deleted!"
+    msg: "Poll " + req.params.id +
+    " deleted along with all associated questions!"
 	});
   });
 });
