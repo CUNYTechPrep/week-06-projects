@@ -60,5 +60,24 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    poll.update({question: req.body.question});
+    res.json(poll);
+  })
+});
+
+
+//Wasn't sure how to destory the associated choices
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+  .then(poll => {
+    poll.destroy();
+    //call choice.destory?
+    res.json(poll);
+  })
+});
 
 module.exports = router;
