@@ -1,0 +1,39 @@
+
+
+What year did you start school?
+
+a) 1975 b) 2000 c)2005 d)2015 e) none of the above
+
+
+
+need the models: question, answer
+
+question
+-id
+-title
+
+
+choice
+-id
+-text
+
+
+answer
+-id
+question_id
+-choice_id
+
+
+
+pollquestions
+-poll
+-question
+
+pollquestionchoice
+-choice
+-qeustion
+-poll
+
+
+
+create the development database
