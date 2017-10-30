@@ -1,10 +1,12 @@
 const bodyParser = require('body-parser');
 const express = require('express');
+const methodOverride = require('method-override');
 const models = require('./models');
 
 const PORT = process.env.PORT || 8000;
 
 const app = express();
+app.use(methodOverride('_method'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -12,6 +12,8 @@ const PollsController = {
         router.post('/:id/choices', this.choices);
         router.delete('/:id', this.deletePoll);
         router.get('/:id/:choiceID/increment', this.incrementChoiceCount);
+        router.get('/:id/edit', this.editPost);
+        router.put('/:id/edit', this.updatePost);
 
         return router;
     },
@@ -45,7 +47,6 @@ const PollsController = {
                     count: 0,
                 })
             }
-            //res.redirect('/polls')
         })
         .then( (choices) => {
             res.redirect('/polls');
@@ -109,6 +110,24 @@ const PollsController = {
                 console.log('error here');
                 res.sendStatus(400);
             })
+    },
+
+    editPost(req, res) {
+        res.render('editPoll', {id: req.params.id});
+    },
+
+    updatePost(req, res) {
+        models.Polls.update({
+            question: req.body.newQuestion,
+        },
+        {
+            where: {
+                id: req.params.id,
+            }
+        })
+        .then( () => {
+            res.redirect('/polls');
+        })
     },
 }
 

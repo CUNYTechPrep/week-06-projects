@@ -1,7 +1,11 @@
 <h1>Here are all the polls you can vote on: </h1>
 
 {{#each allPolls }}
-    <a href="polls/{{ this.id }}"><p>{{ this.question }}</p></a>
+    <p>
+    <a href="polls/{{ this.id }}">{{ this.question }}</a>
+    <a href="polls/{{ this.id }}/edit">EDIT</a>
+    <form method="POST" action="polls/{{ this.id }}?_method=DELETE"><button style="display:inline;"type="submit">DELETE</button></form>
+    </p>
 {{/each }}
 
 <h1>Create a new poll:</h1>
