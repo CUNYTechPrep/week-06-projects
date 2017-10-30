@@ -10,5 +10,19 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/models', (req, res) => {
+  res.json({
+    msg: "Successful GET to '/models' route"
+  });
+});
+
+
+router.post('/', (req, res) => {
+  res.json({
+    msg: "Successful POST to '/' route"
+  });
+});
+
+
 
 module.exports = router;
