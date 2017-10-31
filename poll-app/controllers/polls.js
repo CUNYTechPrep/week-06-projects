@@ -16,6 +16,8 @@ router.get('/', (req, res) => {
 //  We provide the `question` in the body parameters
 //  Note: this does NOT take an array of choices
 router.post('/', (req, res) => {
+  console.log("----------------test")
+  console.log(req.body.question);
   models.Polls.create({
     question: req.body.question
   })
