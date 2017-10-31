@@ -16,6 +16,7 @@ const AltController = {
     res.json({
       msg: "Successful GET to '/alt' route"
     });
+    res.render(models.Posts.findAll())
   },
   create(req, res) {
     res.json({

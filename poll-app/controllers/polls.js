@@ -40,6 +40,39 @@ router.get('/:id', (req, res) => {
   });
 });
 
+//This route is used to edit a poll question
+//The poll id is in the route parameters
+//Great for creating fake news!! Get your answers then change the question!
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.update({
+      question: req.body.question,
+    });
+    res.json(poll);
+  });
+});
+
+//This route is used for deleting polls
+//Question and associated choices should be deleted
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id), {
+    include: [{
+      model: models.Choices
+    }]
+  })
+  .then(poll => {
+    poll.destroy()
+    .then(
+      res.sendStatus(204));
+  });
+});
+
+
 // This route is used for adding a choice for a specific poll
 //  The poll id is in the route parameters
 //  The choice description is in the parameters
