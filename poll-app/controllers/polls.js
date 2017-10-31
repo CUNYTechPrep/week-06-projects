@@ -49,6 +49,9 @@ router.delete('/:id', (req, res) => {
       id: req.params.id
     }
   })
+  .then( () => {
+    res.redirect('/polls');
+  })
 });
 
 // This route is used for adding a choice for a specific poll
