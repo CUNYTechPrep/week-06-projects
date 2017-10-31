@@ -4,17 +4,13 @@ module.exports = (sequelize, DataTypes) => {
     question: DataTypes.STRING
   },{
     hooks:{
-      beforeDestroy: function(poll){
+      beforeDestroy: (poll) => {
         console.log("------- before destroy --------");
         return models.Choices.destroy({
           where: {
             PollId: poll.id
           }
         })
-      },
-      afterDestroy: function(instance, options, cb) {
-        console.log('after destroy');
-        return cb();
       }
     }
   });
