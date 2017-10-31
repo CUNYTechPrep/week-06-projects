@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   },{
     hooks:{
       beforeDestroy: function(poll){
+        console.log("-------before destroy hook ran--------");
         return models.Choices.destroy({
           where: {
             PollId: poll.id

@@ -11,15 +11,11 @@ router.get('/', (req, res) => {
     })
 });
 
-router.post('/', (req, res) => {
-  console.log(req.body.description, req.body.pollId)
-  console.log("--------test", models.Choices);
-
+router.post('/', (req, res  ) => {
   models.Choices.create({
     description: req.body.description
   })
   .then((choice) => {
-    console.log("choices------------" , choice);
     return choice.setPoll(req.body.pollId);
   })
   .then(choice => {

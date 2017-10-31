@@ -16,12 +16,11 @@ router.get('/', (req, res) => {
 //  We provide the `question` in the body parameters
 //  Note: this does NOT take an array of choices
 router.post('/', (req, res) => {
-  console.log("----------------test")
-  console.log(req.body.question);
   models.Polls.create({
     question: req.body.question
   })
   .then((poll) => {
+
     res.json(poll);
   })
   .catch(() => {
@@ -40,6 +39,16 @@ router.get('/:id', (req, res) => {
   .then(poll => {
     res.json(poll);
   });
+});
+
+// This route is used to DELETE a specific poll object
+// All associated choices are also deleted by the hook in the polls.js model
+router.delete('/:id', (req, res) => {
+  models.Polls.destroy({
+    where: {
+      id: req.params.id
+    }
+  })
 });
 
 // This route is used for adding a choice for a specific poll
