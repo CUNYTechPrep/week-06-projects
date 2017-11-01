@@ -1,6 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Choices = sequelize.define('Choices', {
-    description: DataTypes.STRING
+    description: DataTypes.STRING,
+    numVotes: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    }
   });
 
   Choices.associate = (models) => {

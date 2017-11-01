@@ -1,6 +1,18 @@
 module.exports = (sequelize, DataTypes) => {
+
   const Polls = sequelize.define('Polls', {
     question: DataTypes.STRING
+  },{
+    hooks:{
+      beforeDestroy: (poll) => {
+        console.log("------- before destroy --------");
+        return models.Choices.destroy({
+          where: {
+            PollId: poll.id
+          }
+        })
+      }
+    }
   });
 
   Polls.associate = (models) => {
@@ -9,4 +21,3 @@ module.exports = (sequelize, DataTypes) => {
 
   return Polls;
 };
-
