@@ -61,4 +61,39 @@ router.post('/:id/choices', (req, res) => {
 });
 
 
+//PUT route to update a poll
+router.put('/:id', (req, res) => {
+models.Polls.findById(parseInt(req.params.id))
+.then(poll => {
+  polls.questions = req.body.question;
+  polls.save()
+
+   .then((poll) => {
+        res.json(poll);
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+
+//DELETE route to delete a poll
+router.delete('/:id', (req, res) => {
+models.Polls.findById(parseInt(req.params.id))
+   .then((poll) => {
+     poll.destroy()
+   .then((poll) => {
+        res.json('Poll deleted');
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    })
+});
+
+
+
 module.exports = router;
