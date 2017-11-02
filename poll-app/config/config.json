@@ -7,15 +7,15 @@
     "dialect": "postgresql"
   },
   "test": {
-    "username": "DB_USERNAME",
-    "password": "DB_PASSWORD",
+    "username": "ctp_user",
+    "password": "ctp_user",
     "database": "APP_test",
     "host": "127.0.0.1",
     "dialect": "postgresql"
   },
   "production": {
-    "username": "DB_USERNAME",
-    "password": "DB_PASSWORD",
+    "username": "ctp_user",
+    "password": "ctp_user",
     "database": "APP_production",
     "host": "127.0.0.1",
     "dialect": "postgresql"
