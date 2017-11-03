@@ -36,7 +36,10 @@ router.put('/:id', (req, res) => {
         question: req.body.question
       });
     })
-    .then((poll) => res.json())
+    .then((poll) => {
+      console.log(poll);
+      return res.json();
+    })
     .catch(err => {
       console.log(err);
       res.sendStatus(400);
