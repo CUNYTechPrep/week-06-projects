@@ -14,11 +14,13 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.1",
+    "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
+    "express-validation": "^1.0.2",
     "nodemon": "^1.12.1",
+    "path-to-regexp": "^2.1.0",
     "pg": "^7.3.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.13.3"
+    "sequelize": "^4.20.3"
   }
 }
