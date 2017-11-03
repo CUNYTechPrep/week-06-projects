@@ -60,5 +60,53 @@ router.post('/:id/choices', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      models.Polls.update({
+        question: req.body.question,        
+      }, {
+        where: {
+          id: poll.id,
+        }
+      })
+      .then((poll) => {
+        res.json(poll);
+      })
+    })
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+//This route is used for deleting the section of the user's poll.
+router.delete('/:id', (req, res) => {
+  models.Polls.findById(parseInt(req.params.id))
+    .then(poll => {
+      models.Choices.destroy({
+          where: {
+            PollId: poll.id,
+          }
+      }) //models.Choices.Destroy
+      
+      models.Polls.destroy({
+        where: {
+          id: poll.id,
+        }
+      })  //models.Polls
+      
+      .then((poll) => {
+        res.json(poll);
+      })
+    }) //then
+    .catch(() => {
+      console.log('error here')
+      res.sendStatus(400);
+    });
+});
+
+router.put();
+rounter.delete();
 
 module.exports = router;
